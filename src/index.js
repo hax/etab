@@ -46,7 +46,7 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 		var cells = alignCells(row, col)
 		if (cells.aligned) return alignNext(row, col + 1)
 		doAlign(cells)
-		setTimeout(function () { alignNext(row, col + 1) }, 500)
+		setTimeout(function () { alignNext(row, col + 1) })
 	}
 
 	function doAlign(cells) {
