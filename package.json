@@ -8,7 +8,8 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dist": "uglifyjs src/index.js src/github.js -o dist/github.js -e document:document -mc --inline-script"
+    "dist": "uglifyjs src/index.js src/github.js -o dist/github.js -e document:document -mc --inline-script",
+    "prepublish": "npm run dist"
   },
   "repository": {
     "type": "git",
