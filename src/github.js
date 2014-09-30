@@ -1,37 +1,44 @@
 void function(doc) {
 'use strict'
 
-var TAB = '\t'
-var TEXT_NODE = 3
+var TAB	= '\t'
+var TEXT_NODE	= 3
 
 function ElasticTabstops(settings) {
 	if (settings == null) settings = {}
 	this.settings = {
 		tabTagName	:	settings.tabTagName	|| 'span',
 		tabClassName	:	settings.tabClassName	|| 'tab-char',
-		tabIndentWidth	:	settings.tabIndentWidth	|| '1.5em',
+		//tabIndentWidth	:	settings.tabIndentWidth	|| '1.5em',
 		tabSpaceMinWidth	:	settings.tabSpaceMinWidth	|| '1em',
+		styleId	:	settings.styleId	|| 'etab-style', 
+		styleRules	:	settings.styleRules	|| [], 
 		//openPunctuations	:	'"\'([{“‘', //Unicode categories Ps, Pf, Pi
-		//hangingPunctutaion	:	"value", true,
+		//hangingPunctutaion	:	'value', true,
 	}
 }
 
 ElasticTabstops.prototype._addStyle = function (doc) {
-	if (doc.getElementById('etab-style')) return
+	if (doc.getElementById(this.settings.styleId)) return
 	var s = doc.createElement('style')
-	s.id = 'etab-style'
+	s.id = this.settings.styleId
 	doc.body.appendChild(s)
 	var sel = this.settings.tabTagName + '.' + this.settings.tabClassName
 	s.sheet.insertRule(sel + '{ display: inline-block; margin-right: ' + this.settings.tabSpaceMinWidth + ' }', 0)
+	this.settings.styleRules.forEach(function (rule) {
+		s.sheet.insertRule(rule, 0)
+	})
 }
 
 ElasticTabstops.prototype.processLines = function (lineNodes) {
+	
+	if (lineNodes.length) this._addStyle(lineNodes[0].ownerDocument)
+
 	var lines = []
 	for (var i = 0, n = lineNodes.length; i < n; i++) {
 		this._wrapTabs(lineNodes[i])
 		lines[i] = lineNodes[i].querySelectorAll(this.settings.tabTagName + '.' + this.settings.tabClassName)
 	}
-	if (lineNodes.length) this._addStyle(lineNodes[0].ownerDocument)
 
 	var index = lines.map(function (l) { return new Array(l.length) })
 
@@ -47,8 +54,7 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 		var cells = alignCells(row, col)
 		if (cells.aligned) return alignNext(row, col + 1)
 		doAlign(cells)
-		return alignNext(row, col + 1)
-		//setTimeout(function () { alignNext(row, col + 1) })
+		setTimeout(function () { alignNext(row, col + 1) })
 	}
 
 	function doAlign(cells) {
@@ -109,7 +115,11 @@ ElasticTabstops.prototype._isTab = function isTab(e) {
 }
 
 
-	var etab = new ElasticTabstops
-	etab.processLines(doc.querySelectorAll('.js-file-line'))
+var etab = new ElasticTabstops({
+	styleRules: [
+		".blob-code { font-family: 'Input Serif Narrow', 'Georgia', serif; font-size: 1.167em; }",
+	]
+})
+etab.processLines(doc.querySelectorAll('.js-file-line'))
 
 }(document)
