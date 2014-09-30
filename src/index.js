@@ -41,8 +41,6 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 
 	var index = lines.map(function (l) { return new Array(l.length) })
 
-	var tabSpaceMinWidth = this.settings.tabSpaceMinWidth
-
 	alignNext(0, 0)
 
 	function alignNext(row, col) {
