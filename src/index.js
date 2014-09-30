@@ -6,12 +6,12 @@ var TEXT_NODE = 3
 function ElasticTabstops(settings) {
 	if (settings == null) settings = {}
 	this.settings = {
-		tabTagName	:	"value", settings.tabTagName || 'span',
-		tabClassName	:	"value", settings.tabClassName || 'tab-char',
-		tabIndentWidth	:	'1.5em',
-		tabSpaceMinWidth	:	'1em',
-		openPunctuations	:	'"\'([{“‘', //Unicode categories Ps, Pf, Pi
-		hangingPunctutaion	:	"value", true,
+		tabTagName	:	settings.tabTagName	|| 'span',
+		tabClassName	:	settings.tabClassName	|| 'tab-char',
+		tabIndentWidth	:	settings.tabIndentWidth	|| '1.5em',
+		tabSpaceMinWidth	:	settings.tabSpaceMinWidth	|| '1em',
+		//openPunctuations	:	'"\'([{“‘', //Unicode categories Ps, Pf, Pi
+		//hangingPunctutaion	:	"value", true,
 	}
 }
 
