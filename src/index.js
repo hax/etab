@@ -13,7 +13,7 @@ function ElasticTabstops(settings) {
 		styleId	:	settings.styleId	|| 'etab-style', 
 		styleRules	:	settings.styleRules	|| [], 
 		//openPunctuations	:	'"\'([{“‘', //Unicode categories Ps, Pf, Pi
-		//hangingPunctutaion	:	"value", true,
+		//hangingPunctutaion	:	true,
 	}
 }
 
@@ -24,8 +24,8 @@ ElasticTabstops.prototype._addStyle = function (doc) {
 	doc.body.appendChild(s)
 	var sel = this.settings.tabTagName + '.' + this.settings.tabClassName
 	s.sheet.insertRule(sel + '{ display: inline-block; margin-right: ' + this.settings.tabSpaceMinWidth + ' }', 0)
-	this.settings.styleRules.forEach(function (rule) {
-		s.sheet.insertRule(rule, -1)
+	this.settings.styleRules.forEach(function (rule, i) {
+		s.sheet.insertRule(rule, i + 1)
 	})
 }
 
