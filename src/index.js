@@ -13,7 +13,7 @@ function ElasticTabstops(settings) {
 		styleId	:	settings.styleId	|| 'etab-style', 
 		styleRules	:	settings.styleRules	|| [], 
 		//openPunctuations	:	settings.openPunctuations	|| '"\'([{“‘',	// Unicode categories Ps, Pf, Pi
-		//hangingPunctutaion	:	settings.hangingPunctutaion	!== undefined ? !!settings.hangingPunctutaion	: true,
+		//hangingPunctutaion	:	settings.hangingPunctutaion !== undefined ? !!settings.hangingPunctutaion	: true,
 		//openClassName	:	settings.openClassName	|| 'open',
 	}
 }
