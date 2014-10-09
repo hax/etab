@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name       elastic tabstops view for github
-// @namespace  http://github.com/hax/
-// @version    0.1
+// @namespace  https://github.com/hax/
+// @version    0.2
 // @description  
-// @match      http://github.com/*
+// @match      https://github.com/*
 // @copyright  2014, Hax
 // ==/UserScript==
