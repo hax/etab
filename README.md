@@ -10,7 +10,7 @@ etab.processLines(document.querySelectorAll('.code-line'))
 
 ## Examples
 
-Here is the [user script for supporting elastic tabstops on github](https://github.com/hax/etab/blob/master/src/github.js)(note currently only tested under [tempermonkey](http://tampermonkey.net/)).
+Here is the [user script for supporting elastic tabstops on github](https://github.com/hax/etab/blob/master/src/github.js) (note currently only tested under [tempermonkey](http://tampermonkey.net/)).
 After [installing it](https://github.com/hax/etab/raw/master/dist/github.user.js), you could try some samples in your browser:
 
  * https://github.com/hax/etab/blob/master/src/index.js
