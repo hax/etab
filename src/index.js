@@ -12,8 +12,9 @@ function ElasticTabstops(settings) {
 		tabSpaceMinWidth	:	settings.tabSpaceMinWidth	|| '1em',
 		styleId	:	settings.styleId	|| 'etab-style', 
 		styleRules	:	settings.styleRules	|| [], 
-		//openPunctuations	:	'"\'([{“‘', //Unicode categories Ps, Pf, Pi
-		//hangingPunctutaion	:	true,
+		//openPunctuations	:	settings.openPunctuations	|| '"\'([{“‘',	// Unicode categories Ps, Pf, Pi
+		//hangingPunctutaion	:	settings.hangingPunctutaion	!== undefined ? !!settings.hangingPunctutaion	: true,
+		//openClassName	:	settings.openClassName	|| 'open',
 	}
 }
 
