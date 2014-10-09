@@ -1,10 +1,10 @@
 'use strict'
 
-function Point	(/* @param string	*/	name,
-	/* @param int	*/	x,
-	/* @param int	*/	y
+function Point	(/* @param string	*/	name,	// Name of the point
+	/* @param int	*/	x,	// X coordinate on the map
+	/* @param int	*/	y,	// Y coordinate on the map
 	) {
-		this._name	=	name
-		this.x	=	x
-		this.y	=	y
+		this.name	=	String(name)
+		this.x	=	x|0
+		this.y	=	y|0
 	}
