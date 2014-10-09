@@ -1,6 +1,7 @@
 var etab = new ElasticTabstops({
 	styleRules: [
 		".blob-code { font-family: 'Input Serif Narrow', 'Georgia', serif; font-size: 1.167em; }",
+		".highlight .p { color: #bbb; font-weight: lighter; }",
 	]
 })
 
