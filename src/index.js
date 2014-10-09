@@ -4,17 +4,17 @@ var TAB	= '\t'
 var TEXT_NODE	= 3
 
 function ElasticTabstops(settings) {
-	if (settings == null) settings = {}
+	var s = settings || {}
 	this.settings = {
-		tabTagName	:	settings.tabTagName	|| 'span',
-		tabClassName	:	settings.tabClassName	|| 'tab-char',
-		//tabIndentWidth	:	settings.tabIndentWidth	|| '1.5em',
-		tabSpaceMinWidth	:	settings.tabSpaceMinWidth	|| '1em',
-		styleId	:	settings.styleId	|| 'etab-style', 
-		styleRules	:	settings.styleRules	|| [], 
-		//openPunctuations	:	settings.openPunctuations	|| '"\'([{“‘',	// Unicode categories Ps, Pf, Pi
-		//hangingPunctutaion	:	settings.hangingPunctutaion !== undefined ? !!settings.hangingPunctutaion	: true,
-		//openClassName	:	settings.openClassName	|| 'open',
+		tabTagName	:	s.tabTagName	|| 'span',
+		tabClassName	:	s.tabClassName	|| 'tab-char',
+		//tabIndentWidth	:	s.tabIndentWidth	|| '1.5em',
+		tabSpaceMinWidth	:	s.tabSpaceMinWidth	|| '1em',
+		styleId	:	s.styleId	|| 'etab-style', 
+		styleRules	:	s.styleRules	|| [], 
+		//openPunctuations	:	s.openPunctuations	|| '"\'([{“‘',	// Unicode categories Ps, Pf, Pi
+		//hangingPunctutaion	:	s.hangingPunctutaion !== undefined ? !!s.hangingPunctutaion	: true,
+		//openClassName	:	s.openClassName	|| 'open',
 	}
 }
 
