@@ -13,7 +13,10 @@ function process() {
 		if (openPuncs.test(puncs[i].textContent)) puncs[i].classList.add('open')
 	}
 	
-	etab.processLines(document.querySelectorAll('.js-file-line'))
+	var blobs = document.querySelectorAll('.blob-wrapper')
+	for (var i = 0; i < blobs.length; i++) {
+		etab.processLines(blobs[i].querySelectorAll('.blob-code'))
+	}
 }
 
 $(document).ready(process).on('pjax:success', process)
