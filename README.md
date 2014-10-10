@@ -17,3 +17,16 @@ After [installing it](https://github.com/hax/etab/raw/master/dist/github.user.js
  * https://github.com/hax/etab/blob/master/src/github-head.js
  * https://github.com/hax/haojing/blob/elastic-tabstops/htdocs/index.php
  * https://github.com/hax/etab/blob/master/example/hanging-punc.js
+
+
+## TODO
+
+### Core
+ * try to utilize CSS tab-size
+ * indent width (normally wide than tab min width for align)
+
+### Github user script
+ * test Firefox (with Geasemonkey), IE
+ * add settings button and dialog
+ * allow change font, tab width and other configurations
+ * support diff view
