@@ -1,4 +1,4 @@
-# Elastic Tabstops JavaScript Implementation
+# Elastic Tabstops JavaScript Implementation for Browsers
 
 
 ## Usage
