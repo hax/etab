@@ -30,10 +30,11 @@ After [installing it](https://github.com/hax/etab/raw/master/dist/github.user.js
 	- `[SP]right aligned[TAB]`
 	- `left aligned[SP][TAB]`
 	- `[SP]center aligned[SP][TAB]`
-	- `3.14159 (decimal aligned)`
+	- `3.14159 (decimal aligned)[TAB]`
 
 ### Github user script
- - [ ] test Firefox (with Geasemonkey), IE
+ - [x] test Firefox (with Geasemonkey)
+ - [ ] test IE (with ?)
  - [ ] add settings button and dialog
  - [ ] allow change font, tab width and other configurations
  - [x] support diff view
