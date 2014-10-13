@@ -37,7 +37,7 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 
 	var lines = []
 	for (var i = 0, n = lineNodes.length; i < n; i++) {
-		this._wrapTabs(lineNodes[i])
+		this._wrapAllTabs(lineNodes[i])
 		lines[i] = lineNodes[i].querySelectorAll(this.settings.tabTagName + '.' + this.settings.tabClassName)
 	}
 
