@@ -9,6 +9,7 @@ function ElasticTabstops(settings) {
 		tabTagName	:	s.tabTagName	|| 'span',
 		tabClassName	:	s.tabClassName	|| 'tab-char',
 		//tabIndentWidth	:	s.tabIndentWidth	|| '1.5em',
+		indentClassName	:	s.indentClassName	||	'ident',
 		tabSpaceMinWidth	:	s.tabSpaceMinWidth	|| '1em',
 		styleId	:	s.styleId	|| 'etab-style', 
 		styleRules	:	s.styleRules	|| [], 
@@ -83,25 +84,32 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 	}
 }
 
-ElasticTabstops.prototype._wrapTabs = function wrapTabs(domNode) {
+ElasticTabstops.prototype._wrapAllTabs = function wrapTabs(domNode, indent) {
+	if (indent === undefined) indent = true
 	if (domNode.nodeType === TEXT_NODE) {
 		var i
 		while ((i = domNode.wholeText.indexOf(TAB)) >= 0) {
+			if (indent && i > 0) indent = false
 			var t = domNode.splitText(i)
 			domNode = t.splitText(1)
-			this._wrapTab(t)
-			//domNode = t
+			this._wrapTab(t, indent)
 		}
+		if (indent && domNode.wholeText.length > 0) indent = false
 	} else if (!this._isTab(domNode)) {
 		var node = domNode.firstChild
-		while (node) node = this._wrapTabs(node).nextSibling
+		while (node) {
+			var next = node.nextSibling
+			indent = this._wrapAllTabs(node, indent)
+			node = next
+		}
 	}
-	return domNode
+	return indent
 }
 
-ElasticTabstops.prototype._wrapTab = function wrapTab(tab) {
+ElasticTabstops.prototype._wrapTab = function wrapTab(tab, indent) {
 	var e = tab.ownerDocument.createElement(this.settings.tabTagName)
 	e.classList.add(this.settings.tabClassName)
+	if (indent) e.classList.add(this.settings.indentClassName)
 	tab.parentNode.replaceChild(e, tab)
 	e.appendChild(tab)
 	return e
