@@ -10,6 +10,7 @@ function ElasticTabstops(settings) {
 		tabClassName	:	s.tabClassName	|| 'tab-char',
 		//tabIndentWidth	:	s.tabIndentWidth	|| '1.5em',
 		indentClassName	:	s.indentClassName	||	'ident',
+		tabIndentExtraSpace	:	8, 
 		tabSpaceMinWidth	:	s.tabSpaceMinWidth	|| '1em',
 		styleId	:	s.styleId	|| 'etab-style', 
 		styleRules	:	s.styleRules	|| [], 
@@ -43,6 +44,8 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 
 	var index = lines.map(function (l) { return new Array(l.length) })
 
+	var settings = this.settings
+	
 	alignNext(0, 0)
 
 	function alignNext(row, col) {
@@ -58,7 +61,9 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 
 	function doAlign(cells) {
 		var rights = cells.map(function (x) {
-			return x.getBoundingClientRect().right
+			var r = x.getBoundingClientRect().right
+			if (x.classList.contains(settings.indentClassName)) r += settings.tabIndentExtraSpace
+			return r
 		})
 		var rightmost = Math.max.apply(null, rights)
 		cells.forEach(function (x) {
