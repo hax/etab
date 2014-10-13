@@ -22,10 +22,10 @@ After [installing it](https://github.com/hax/etab/raw/master/dist/github.user.js
 ## TODO
 
 ### Core
- * try to utilize CSS tab-size
- * indent width (normally wide than tab min width for align)
- * detect tab size of the source
- * extension of alignment:
+ * [ ] try to utilize CSS tab-size
+ * [ ] indent width (normally wide than tab min width for align)
+ * [ ] detect tab size of the source
+ * [ ] extension of alignment:
 	- `auto aligned[TAB]`
 	- `[SP]right aligned[TAB]`
 	- `left aligned[SP][TAB]`
@@ -33,8 +33,8 @@ After [installing it](https://github.com/hax/etab/raw/master/dist/github.user.js
 	- `3.14159 (decimal aligned)`
 
 ### Github user script
- - [] test Firefox (with Geasemonkey), IE
- - [] add settings button and dialog
- - [] allow change font, tab width and other configurations
+ - [ ] test Firefox (with Geasemonkey), IE
+ - [ ] add settings button and dialog
+ - [ ] allow change font, tab width and other configurations
  - [x] support diff view
- - [] only process the code block that use elastic tabstops
+ - [ ] only process the code block that use elastic tabstops
