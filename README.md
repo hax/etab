@@ -38,4 +38,4 @@ After [installing it](https://github.com/hax/etab/raw/master/dist/github.user.js
  - [ ] add settings button and dialog
  - [ ] allow change font, tab width and other configurations
  - [x] support diff view
- - [ ] only process the code block that use elastic tabstops
+ - [x] only process the code block that use elastic tabstops
