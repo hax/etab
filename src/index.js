@@ -1,6 +1,7 @@
 'use strict'
 
 var TAB	= '\t'
+var SPACE = ' '
 var TEXT_NODE	= 3
 
 function ElasticTabstops(settings) {
@@ -32,9 +33,27 @@ ElasticTabstops.prototype._addStyle = function (doc) {
 	})
 }
 
+ElasticTabstops.prototype.testLines = function (lineNodes) {
+	var etabPattern = /[^\t]+\t/
+	var state = false
+	for (var i = 0, n = lineNodes.length; i < n; i++) {
+		var text = lineNodes[i].textContent
+		if (text.charAt(0) === SPACE) return false
+		if (etabPattern.test(text)) {
+			if (state) return true
+			else state = true
+		} else {
+			state = false
+		}
+	}
+	return false
+}
+
 ElasticTabstops.prototype.processLines = function (lineNodes) {
 	
-	if (lineNodes.length) this._addStyle(lineNodes[0].ownerDocument)
+	if (!this.testLines(lineNodes)) return
+
+	this._addStyle(lineNodes[0].ownerDocument)
 
 	var lines = []
 	for (var i = 0, n = lineNodes.length; i < n; i++) {
@@ -123,4 +142,8 @@ ElasticTabstops.prototype._wrapTab = function wrapTab(tab, indent) {
 ElasticTabstops.prototype._isTab = function isTab(e) {
 	return	e.nodeName === this.settings.tabTagName &&
 		e.classList.contains(this.settings.tabClassName)
+}
+
+ElasticTabstops.prototype._wrapTabColumns = function wrapTabColumns(domNode) {
+	//todo
 }
