@@ -1,7 +1,7 @@
 'use strict'
 
 var TAB	= '\t'
-var SPACE = ' '
+var SPACE	= ' '
 var TEXT_NODE	= 3
 
 function ElasticTabstops(settings) {
