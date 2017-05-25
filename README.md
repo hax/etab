@@ -1,5 +1,7 @@
 # Elastic Tabstops JavaScript Implementation for Browsers
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/hax/etab.svg)](https://greenkeeper.io/)
+
 
 ## Usage
 
