@@ -19,6 +19,6 @@ function process() {
 	}
 }
 
-ghImport('jquery').then($ => {
+ghImport('jquery').then(function($) {
 	$(document).ready(process).on('pjax:success', process)
 })
