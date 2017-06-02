@@ -1,8 +1,8 @@
 {
   "name": "etab",
-  "version": "0.0.3",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.4",
+  "description": "Elastic Tabstops",
+  "main": "dist/index.js",
   "directories": {
     "test": "test"
   },
