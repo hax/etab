@@ -15,7 +15,6 @@ After [installing it](https://github.com/hax/etab/raw/master/dist/github.user.js
 
  * https://github.com/hax/etab/blob/master/src/index.js
  * https://github.com/hax/etab/blob/master/src/github-head.js
- * https://github.com/hax/haojing/blob/elastic-tabstops/htdocs/index.php
  * https://github.com/hax/etab/blob/master/example/hanging-punc.js
 
 
