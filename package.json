@@ -29,6 +29,6 @@
   },
   "homepage": "https://github.com/hax/etab",
   "devDependencies": {
-    "uglify-js": "^2.4.15"
+    "uglify-js": "^2.8.27"
   }
 }
