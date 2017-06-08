@@ -4,6 +4,21 @@ var TAB	= '\t'
 var SPACE	= ' '
 var TEXT_NODE	= 3
 
+/**
+ * Creates a new ElasticTabstops instance.
+ *
+ * @public
+ *
+ * @param	{Object}	[settings={}]	The settings object.
+ * @param	{String}	[settings.tabTagName='span']	The tab tag name.
+ * @param	{String}	[settings.tabClassName='tab-char']	The tab tag class.
+ * @param	{String}	[settings.indentClassName='indent']	The indentation class.
+ * @param	{String}	[settings.tabSpaceMinWidth='1em']	The minimum width of a tab.
+ * @param	{String}	[settings.styleId='etab-style']	The ID of the &lt;style&gt; tag.
+ * @param	{String[]}	[settings.styleRules=]	The content of the &lt;style&gt; tag.
+ *
+ * @returns {ElasticTabstops} The ElasticTabstops instance
+ */
 function ElasticTabstops(settings) {
 	var s = settings || {}
 	this.settings = {
@@ -11,16 +26,21 @@ function ElasticTabstops(settings) {
 		tabClassName	:	s.tabClassName	|| 'tab-char',
 		//tabIndentWidth	:	s.tabIndentWidth	|| '1.5em',
 		indentClassName	:	s.indentClassName	||	'ident',
-		tabIndentExtraSpace	:	8, 
+		tabIndentExtraSpace	:	8,
 		tabSpaceMinWidth	:	s.tabSpaceMinWidth	|| '1em',
-		styleId	:	s.styleId	|| 'etab-style', 
-		styleRules	:	s.styleRules	|| [], 
+		styleId	:	s.styleId	|| 'etab-style',
+		styleRules	:	s.styleRules	|| [],
 		//openPunctuations	:	s.openPunctuations	|| '"\'([{“‘',	// Unicode categories Ps, Pf, Pi
 		//hangingPunctutaion	:	s.hangingPunctutaion !== undefined ? !!s.hangingPunctutaion	: true,
 		//openClassName	:	s.openClassName	|| 'open',
 	}
 }
 
+/**
+ * @private
+ * @param {type} doc
+ * @returns {undefined}
+ */
 ElasticTabstops.prototype._addStyle = function (doc) {
 	if (doc.getElementById(this.settings.styleId)) return
 	var s = doc.createElement('style')
@@ -35,22 +55,27 @@ ElasticTabstops.prototype._addStyle = function (doc) {
 
 ElasticTabstops.prototype.testLines = function (lineNodes) {
 	var etabPattern = /[^\t]+\t/
-	var state = false
 	for (var i = 0, n = lineNodes.length; i < n; i++) {
 		var text = lineNodes[i].textContent
-		if (text.charAt(0) === SPACE) return false
+//		if (text.charAt(0) === SPACE) return false // BREAKS ON LICENSE HEADERS AND ON JSDOC!
 		if (etabPattern.test(text)) {
-			if (state) return true
-			else state = true
-		} else {
-			state = false
+			return true
 		}
 	}
-	return false
+	return false // The document doesn't have any non-indentation tabs.
 }
 
+/**
+ * Processes the document.
+ *
+ * @public
+ *
+ * @param {NodeList} lineNodes The nodes containing the text
+ *
+ * @returns {undefined}
+ */
 ElasticTabstops.prototype.processLines = function (lineNodes) {
-	
+
 	if (!this.testLines(lineNodes)) return
 
 	this._addStyle(lineNodes[0].ownerDocument)
@@ -64,7 +89,7 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 	var index = lines.map(function (l) { return new Array(l.length) })
 
 	var settings = this.settings
-	
+
 	alignNext(0, 0)
 
 	function alignNext(row, col) {
@@ -78,6 +103,11 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 		setTimeout(function () { alignNext(row, col + 1) })
 	}
 
+	/**
+	 * @private
+	 * @param {HTMLElement[]} cells
+	 * @returns {undefined}
+	 */
 	function doAlign(cells) {
 		var rights = cells.map(function (x) {
 			var r = x.getBoundingClientRect().right
@@ -88,7 +118,7 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 		cells.forEach(function (x) {
 			x.style.width = (rightmost - x.getBoundingClientRect().right) + 'px'
 		})
-		cells.aligned = true		
+		cells.aligned = true
 	}
 
 	function alignCells(row, col) {
