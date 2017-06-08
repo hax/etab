@@ -7,9 +7,16 @@ function process() {
 		if (openPuncs.test(puncs[i].textContent)) puncs[i].classList.add('open')
 	}
 
-	var blobs = document.querySelectorAll('.blob-wrapper')
+	var blobs = document.querySelectorAll('.blob-wrapper > table')
 	for (var i = 0; i < blobs.length; i++) {
-		etab.processLines(blobs[i].querySelectorAll('.blob-code'))
+		var localEtab = etab
+		var blob = blobs[i]
+		if (blob.dataset.tabSize && blob.dataset.tabSize !== 8) {
+			localEtab = new ElasticTabstops({
+				tabIndentExtraSpace: blob.dataset.tabSize
+			})
+		}
+		localEtab.processLines(blobs[i].querySelectorAll('.blob-code'))
 	}
 }
 
