@@ -13,7 +13,8 @@ var TEXT_NODE	= 3
  * @param	{String}	[settings.tabTagName='span']	The tab tag name.
  * @param	{String}	[settings.tabClassName='tab-char']	The tab tag class.
  * @param	{String}	[settings.indentClassName='indent']	The indentation class.
- * @param	{String}	[settings.tabSpaceMinWidth='1em']	The minimum width of a tab.
+ * @param	{String}	[settings.tabIndentExtraSpace=8]	The width of indentation tabs, in spaces.
+ * @param	{String}	[settings.tabSpaceMinWidth='1ch']	The minimum width of a tab, defaults to the size of a space.
  * @param	{String}	[settings.styleId='etab-style']	The ID of the &lt;style&gt; tag.
  * @param	{String[]}	[settings.styleRules=]	The content of the &lt;style&gt; tag.
  *
@@ -26,8 +27,8 @@ function ElasticTabstops(settings) {
 		tabClassName	:	s.tabClassName	|| 'tab-char',
 		//tabIndentWidth	:	s.tabIndentWidth	|| '1.5em',
 		indentClassName	:	s.indentClassName	||	'ident',
-		tabIndentExtraSpace	:	8,
-		tabSpaceMinWidth	:	s.tabSpaceMinWidth	|| '1em',
+		tabIndentExtraSpace	:	s.tabIndentExtraSpace	||	8,
+		tabSpaceMinWidth	:	s.tabSpaceMinWidth	|| '1ch',
 		styleId	:	s.styleId	|| 'etab-style',
 		styleRules	:	s.styleRules	|| [],
 		//openPunctuations	:	s.openPunctuations	|| '"\'([{“‘',	// Unicode categories Ps, Pf, Pi
@@ -47,7 +48,8 @@ ElasticTabstops.prototype._addStyle = function (doc) {
 	s.id = this.settings.styleId
 	doc.body.appendChild(s)
 	var sel = this.settings.tabTagName + '.' + this.settings.tabClassName
-	s.sheet.insertRule(sel + '{ display: inline-block; margin-right: ' + this.settings.tabSpaceMinWidth + ' }', 0)
+	s.sheet.insertRule(sel + '{ display: inline-block; min-width: ' + this.settings.tabSpaceMinWidth + ' }', 0)
+	s.sheet.insertRule(sel + ".ident" + '{ min-width: ' + this.settings.tabIndentExtraSpace + 'ch }', 0)
 	this.settings.styleRules.forEach(function (rule, i) {
 		s.sheet.insertRule(rule, i + 1)
 	})
@@ -110,13 +112,11 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 	 */
 	function doAlign(cells) {
 		var rights = cells.map(function (x) {
-			var r = x.getBoundingClientRect().right
-			if (x.classList.contains(settings.indentClassName)) r += settings.tabIndentExtraSpace
-			return r
+			return x.getBoundingClientRect().right
 		})
 		var rightmost = Math.max.apply(null, rights)
 		cells.forEach(function (x) {
-			x.style.width = (rightmost - x.getBoundingClientRect().right) + 'px'
+			x.style.width = 'calc(' + (rightmost - x.getBoundingClientRect().right) + 'px + ' + settings.tabSpaceMinWidth + ')'
 		})
 		cells.aligned = true
 	}
@@ -170,7 +170,7 @@ ElasticTabstops.prototype._wrapTab = function wrapTab(tab, indent) {
 }
 
 ElasticTabstops.prototype._isTab = function isTab(e) {
-	return	e.nodeName === this.settings.tabTagName &&
+	return	e.nodeName.toUpperCase() === this.settings.tabTagName.toUpperCase() &&
 		e.classList.contains(this.settings.tabClassName)
 }
 
