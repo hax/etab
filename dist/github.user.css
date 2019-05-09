@@ -1,0 +1,32 @@
+/*
+The userstyle to specify the GitHub style as the author of this script intended
+
+Needs to be installed with Stylus/Stylish/any other userstyles manager
+
+# Stylus:
+- Firefox:	https://addons.mozilla.org/en-US/firefox/addon/styl-us/
+- Opera:	https://addons.opera.com/extensions/details/stylus/
+- Chrome:	https://chrome.google.com/webstore/detail/stylus/clngdbkpkpeebahjckkjfobafhncgmne
+
+# Stylish:
+- Firefox:	https://addons.mozilla.org/en-US/firefox/addon/stylish/
+- Opera:	https://addons.opera.com/en/extensions/details/stylish/
+- Chrome:	https://chrome.google.com/webstore/detail/stylish-custom-themes-for/fjnbnpbmkenffdnngjfgmeleoegfcffe
+*/
+@-moz-document domain("github.com") {
+	.blob-code,
+	.blob-code span {
+		font-family:	'InputSerifNarrow', 'Georgia', serif !important;
+		font-size:	1.167em !important;
+	}
+
+	.highlight .p {
+		color: #bbb;
+		font-weight: lighter;
+	}
+
+	.highlight span.tab-char + .open.p {
+		position: absolute;
+		transform: translateX(-100%);
+	}
+}

@@ -1,10 +1,4 @@
-var etab = new ElasticTabstops({
-	styleRules: [
-		".blob-code { font-family: 'Input Serif Narrow', 'Georgia', serif; font-size: 1.167em; }",
-		".highlight .p { color: #bbb; font-weight: lighter; }",
-		".highlight span.tab-char + .open.p { position: absolute; transform: translateX(-100%); }",
-	]
-})
+var etab = new ElasticTabstops()
 
 function process() {
 	var openPuncs = /^["'([{“‘]+$/
@@ -13,9 +7,16 @@ function process() {
 		if (openPuncs.test(puncs[i].textContent)) puncs[i].classList.add('open')
 	}
 
-	var blobs = document.querySelectorAll('.blob-wrapper')
+	var blobs = document.querySelectorAll('.blob-wrapper > table')
 	for (var i = 0; i < blobs.length; i++) {
-		etab.processLines(blobs[i].querySelectorAll('.blob-code'))
+		var localEtab = etab
+		var blob = blobs[i]
+		if (blob.dataset.tabSize && blob.dataset.tabSize !== 8) {
+			localEtab = new ElasticTabstops({
+				tabIndentExtraSpace: blob.dataset.tabSize
+			})
+		}
+		localEtab.processLines(blobs[i].querySelectorAll('.blob-code'))
 	}
 }
 

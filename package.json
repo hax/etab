@@ -6,7 +6,7 @@
   "files": ["dist", "src"],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "cp src/github.meta.js dist; uglifyjs src/index.js src/github.js -o dist/github.js -e document:document -mc --inline-script && uglifyjs --comments all dist/github.meta.js dist/github.js -o dist/github.user.js"
+    "prepare": "cp src/github.meta.js dist; cp src/github.css dist/github.user.css; uglifyjs src/index.js src/github.js --source-map dist/github.js.map -o dist/github.js -e document:document -mc --inline-script && uglifyjs --comments all dist/github.meta.js dist/github.js -o dist/github.user.js; cp dist/github.js.map dist/github.user.js.map"
   },
   "repository": {
     "type": "git",
