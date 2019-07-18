@@ -1,10 +1,4 @@
-var etab = new ElasticTabstops({
-	styleRules: [
-		".blob-code { font-family: 'Input Serif Narrow', 'Georgia', serif; font-size: 1.167em; }",
-		".highlight .p { color: #bbb; font-weight: lighter; }",
-		".highlight span.tab-char + .open.p { position: absolute; transform: translateX(-100%); }",
-	]
-})
+var etab = new ElasticTabstops()
 
 function process() {
 	var openPuncs = /^["'([{“‘]+$/
