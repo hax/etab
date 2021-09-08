@@ -13,13 +13,13 @@ function process() {
 		if (openPuncs.test(puncs[i].textContent)) puncs[i].classList.add('open')
 	}
 
-	var blobs = document.querySelectorAll('.blob-wrapper')
+	var blobs = document.querySelectorAll('.blob-wrapper > table')
 	for (var i = 0; i < blobs.length; i++) {
-		etab.processLines(blobs[i].querySelectorAll('.blob-code'))
+		var lines = blobs[i].querySelectorAll('.blob-code')
+		etab.processLines(lines)
 	}
 }
 
-window.addEventListener('show', process)
-// ghImport('jquery').then(function($) {
-// 	$(document).ready(process).on('pjax:success', process)
-// })
+window.addEventListener('pageshow', e => {
+	process()
+})
