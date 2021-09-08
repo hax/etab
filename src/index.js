@@ -11,10 +11,10 @@ function ElasticTabstops(settings) {
 		tabClassName	:	s.tabClassName	|| 'tab-char',
 		//tabIndentWidth	:	s.tabIndentWidth	|| '1.5em',
 		indentClassName	:	s.indentClassName	||	'ident',
-		tabIndentExtraSpace	:	8, 
+		tabIndentExtraSpace	:	8,
 		tabSpaceMinWidth	:	s.tabSpaceMinWidth	|| '1em',
-		styleId	:	s.styleId	|| 'etab-style', 
-		styleRules	:	s.styleRules	|| [], 
+		styleId	:	s.styleId	|| 'etab-style',
+		styleRules	:	s.styleRules	|| [],
 		//openPunctuations	:	s.openPunctuations	|| '"\'([{“‘',	// Unicode categories Ps, Pf, Pi
 		//hangingPunctutaion	:	s.hangingPunctutaion !== undefined ? !!s.hangingPunctutaion	: true,
 		//openClassName	:	s.openClassName	|| 'open',
@@ -34,12 +34,18 @@ ElasticTabstops.prototype._addStyle = function (doc) {
 }
 
 ElasticTabstops.prototype.testLines = function (lineNodes) {
+	// inline tabs not for indentation but for alignment
 	var etabPattern = /[^\t]+\t/
+
 	var state = false
 	for (var i = 0, n = lineNodes.length; i < n; i++) {
 		var text = lineNodes[i].textContent
-		if (text.charAt(0) === SPACE) return false
+		if (text.charAt(0) === SPACE && text.charAt(1) === SPACE) {
+			// starts with at least two spaces
+			return false
+		}
 		if (etabPattern.test(text)) {
+			// inline tab found
 			if (state) return true
 			else state = true
 		} else {
@@ -50,7 +56,7 @@ ElasticTabstops.prototype.testLines = function (lineNodes) {
 }
 
 ElasticTabstops.prototype.processLines = function (lineNodes) {
-	
+
 	if (!this.testLines(lineNodes)) return
 
 	this._addStyle(lineNodes[0].ownerDocument)
@@ -64,7 +70,7 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 	var index = lines.map(function (l) { return new Array(l.length) })
 
 	var settings = this.settings
-	
+
 	alignNext(0, 0)
 
 	function alignNext(row, col) {
@@ -88,7 +94,7 @@ ElasticTabstops.prototype.processLines = function (lineNodes) {
 		cells.forEach(function (x) {
 			x.style.width = (rightmost - x.getBoundingClientRect().right) + 'px'
 		})
-		cells.aligned = true		
+		cells.aligned = true
 	}
 
 	function alignCells(row, col) {
