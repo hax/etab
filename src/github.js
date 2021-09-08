@@ -20,6 +20,4 @@ function process() {
 	}
 }
 
-window.addEventListener('pageshow', e => {
-	process()
-})
+window.addEventListener('pageshow', process)
